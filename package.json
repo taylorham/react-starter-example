@@ -1,7 +1,7 @@
 {
-  "name": "react-starter",
-  "version": "1.0.0",
-  "description": "\"Super-basic Hello World app made in React with Webpack and Babel\"",
+  "name": "react-starter-example",
+  "version": "0.1.0",
+  "description": "\"Beginner example app made in React with Webpack and Babel\"",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --inline --hot",
