@@ -2,13 +2,36 @@ import React from 'react'
 
 export const TodoList = ({todos, activeTags, toggleCompleted, addItem, deleteItem}) => {
   const todoItemsToIterate = []
+  const todoItemProps = {
+    toggleCompleted: toggleCompleted,
+    deleteItem: deleteItem
+  }
 
   if (!activeTags.length) {
-    todos.map((todo, i) => todoItemsToIterate.push(<TodoItem key={i} todo={todo} idx={i} toggleCompleted={toggleCompleted} deleteItem={deleteItem} />))
+    todos.map((todo, i) => {
+      todoItemsToIterate.push(
+        <TodoItem
+          key={i}
+          todo={todo}
+          idx={i}
+          {...todoItemProps}
+        />
+      )
+    })
   } else {
     todos.map((todo, i) => {
       todo.tags.map(tag => {
-        if (activeTags.indexOf(tag) !== -1) todoItemsToIterate.push(<TodoItem key={i} todo={todo} idx={i} activeTags={activeTags} toggleCompleted={toggleCompleted} deleteItem={deleteItem} />)
+        if (activeTags.indexOf(tag) !== -1) {
+          todoItemsToIterate.push(
+            <TodoItem
+              key={i}
+              todo={todo}
+              idx={i}
+              activeTags={activeTags}
+              {...todoItemProps}
+            />
+          )
+        }
       })
     })
   }
@@ -17,7 +40,7 @@ export const TodoList = ({todos, activeTags, toggleCompleted, addItem, deleteIte
     <div className="panel panel-default">
       <div className="panel-heading">
         <h3 className="panel-title">
-          {activeTags.length ? `Filter by tag: ${activeTags.join(', ')}` : 'Todos:'}
+          TodoList
         </h3>
       </div>
       <div className="panel-body">
@@ -25,6 +48,7 @@ export const TodoList = ({todos, activeTags, toggleCompleted, addItem, deleteIte
           <AddItemPanel addItem={addItem} />
         </div>
         <div className="list-group">
+          {activeTags.length ? <h4>Filter by tag: {activeTags.join(', ')}</h4> : ''}
           {todoItemsToIterate}
         </div>
       </div>
@@ -50,20 +74,20 @@ const AddItemPanel = ({addItem}) => {
           </div>
         </div>
       </div>
-      <button type="button" className="btn btn-success pull-right" onClick={() => addItem()}>Add Item</button>
+      <button type="button" className="btn btn-success pull-right" onClick={() => addItem('addItemField', 'addTagsField')}>Add Item</button>
     </div>
   )
 }
 
 const TodoItem = ({todo, idx, activeTags, toggleCompleted, deleteItem}) => {
-  const todoItem = todo.completed ? <del>{todo.title}</del> : todo.title
+  const todoTitle = todo.completed ? <del>{todo.title}</del> : todo.title
   const todoTags = []
 
   if (activeTags) {
-    activeTags.map(active => {
-      todo.tags.map((tag, i) => {
+    todo.tags.map((tag, i) => {
+      activeTags.map(active => {
         if (active === tag) {
-          todoTags.push(<TodoTag key={i} tag={tag} active/>)
+          todoTags.push(<TodoTag key={i} tag={tag} active />)
         } else {
           todoTags.push(<TodoTag key={i} tag={tag} />)
         }
@@ -82,8 +106,8 @@ const TodoItem = ({todo, idx, activeTags, toggleCompleted, deleteItem}) => {
       </span>
       <div className="checkbox" style={{marginLeft: '8px'}}>
         <label onClick={(e) => toggleCompleted(idx, e)} style={{cursor: 'pointer'}}>
-          <input type="checkbox" checked={todo.completed} style={{marginRight: '10px'}} />
-          {todoItem}
+          <input type="checkbox" value={todo.completed} style={{marginRight: '10px'}} />
+          {todoTitle}
         </label>
       </div>
       <div>
@@ -94,14 +118,14 @@ const TodoItem = ({todo, idx, activeTags, toggleCompleted, deleteItem}) => {
 }
 
 export const TodoTag = ({tag, active, tagFilter}) => {
-  const clickable = {style: {display: 'inline-block', marginRight: '8px'}}
+  const extraProps = {style: {display: 'inline-block', marginRight: '8px'}}
   if (tagFilter) {
-    clickable.onClick = () => tagFilter(tag)
-    clickable.style.cursor = 'pointer'
+    extraProps.onClick = () => tagFilter(tag)
+    extraProps.style.cursor = 'pointer'
   }
 
   return (
-    <div className={`label ${active ? 'label-primary' : 'label-default'}`} {...clickable}>
+    <div className={`label ${active ? 'label-primary' : 'label-default'}`} {...extraProps}>
       {tag}
     </div>
   )

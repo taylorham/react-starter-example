@@ -23,9 +23,9 @@ class Main extends React.Component {
     this.setState({todos: updatedTodos})
   }
 
-  handleAddItem = () => {
-    const title = document.getElementById('addItemField').value
-    const originalTags = document.getElementById('addTagsField').value.split(', ')
+  handleAddItem = (titleField, tagField) => {
+    let title = document.getElementById(titleField).value
+    let originalTags = document.getElementById(tagField).value.split(', ')
 
     if (!title) {
       return alert('Title cannot be blank')
@@ -38,8 +38,9 @@ class Main extends React.Component {
     const newTodoItem = {title: title, completed: false, tags: noDuplicateTags}
     const updatedTodos = update(this.state.todos, { $push: [newTodoItem] })
 
-    document.getElementById('addItemField').value = ''
-    document.getElementById('addTagsField').value = ''
+    title = ''
+    originalTags = ''
+    // document.getElementById('addTagsField').value = ''
 
     this.setState({todos: updatedTodos})
   }
