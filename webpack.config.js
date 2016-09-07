@@ -1,7 +1,7 @@
 var webpack = require('webpack')
 
 module.exports = {
-  entry: './app/components/Main.js',
+  entry: './app/Main.js',
   output: {
     filename: 'public/index.js'
   },
