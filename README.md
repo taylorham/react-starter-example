@@ -5,7 +5,7 @@ This is an example app made with React to show how you might build a Todo List a
 * [Getting up and running](#getting-up-and-running)
 
 ## Getting up and running
-Clone this repository with `git clone git@github.com:taylorham/react-starter-example.git` and run `npm install` to install dependencies, followed by `npm start` to get the server up and running. Then navigate to `localhost:3333/public` in your favorite browser to view the app.
+Clone this repository with `git clone git@github.com:sustain/react-starter-example.git` and run `npm install` to install dependencies, followed by `npm start` to get the server up and running. Then navigate to `localhost:3333/public` in your favorite browser to view the app.
 
 Feel free to change any files and save them to see them automatically update in your browser.
 

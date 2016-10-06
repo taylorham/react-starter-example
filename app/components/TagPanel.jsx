@@ -1,7 +1,7 @@
 import React from 'react'
 import { TodoTag } from './TodoTag'
 
-export const TagPanel = ({todos, activeTags, tagFilter}) => {
+export const TagPanel = ({todos, activeTags, tagFilter, clearTagFilter}) => {
   const allTags = new Set()
 
   todos.map(todo => todo.tags.map(tag => allTags.add(tag)))

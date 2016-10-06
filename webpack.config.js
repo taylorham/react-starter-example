@@ -13,10 +13,13 @@ module.exports = {
   //   'react': 'React',
   //   'react-dom': 'ReactDOM'
   // },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
